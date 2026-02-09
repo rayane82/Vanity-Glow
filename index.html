@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanity Glow | L'éclat de votre beauté</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-pink: #F0DEDE; 
+            --brand-pink-dark: #e5c5c5;
+            --bg-main: #FFFFFF; 
+            --text-main: #1C1C1C; 
+            --brand-gold: #BC9C62;
+            --section-hero: #FAF3F3; 
+            --section-boutique: #FFFFFF;
+            --border-light: rgba(28, 28, 28, 0.08);
+            --heart-gradient: linear-gradient(135deg, #f0dede 0%, #ffafbd 100%);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.02em;
+            color: var(--text-main);
+        }
+
+        header { background-color: var(--section-hero); position: relative; }
+        main { background-color: var(--section-boutique); }
+        
+        footer { 
+            background-color: var(--brand-pink); 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+        }
+        nav { 
+            background-color: var(--brand-pink) !important; 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            height: 120px;
+        }
+
+        /* Heart Animation */
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 200;
+            width: 20px;
+            height: 20px;
+            background: var(--heart-gradient);
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            animation: heartFloat 1s ease-out forwards;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: scale(0) translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.5) translate(var(--tw-tx, 0), var(--tw-ty, -50px)) rotate(var(--tw-tr, 0deg)); opacity: 0; }
+        }
+
+        /* Carousel Horizontal */
+        .product-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+        }
+        .product-carousel::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+
+        .product-card {
+            flex-shrink: 0;
+            width: 85vw;
+            max-width: 380px;
+            scroll-snap-align: center;
+            background-color: #FFFFFF;
+            border: 1px solid var(--border-light);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 40px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-pink);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+        }
+
+        .btn-primary {
+            background-color: var(--brand-pink);
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-pink-dark);
+            transform: scale(1.02);
+        }
+
+        .logo-main {
+            height: 100px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .logo-main { height: 70px; }
+            nav { height: 90px; }
+        }
+
+        .side-drawer {
+            background-color: #FFFFFF;
+            border-left: 1px solid var(--border-light);
+            color: var(--text-main);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .text-muted { color: rgba(28, 28, 28, 0.6); }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--brand-pink);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+            <div class="cursor-pointer flex items-center" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <img src="https://i.postimg.cc/JnCrgKF0/unnamed-(37).jpg" alt="Vanity Glow" class="logo-main object-contain">
+            </div>
+            
+            <div class="flex items-center gap-8">
+                <button id="cartBtn" class="relative p-4 bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 bg-black text-white text-[9px] font-bold w-5 h-5 flex items-center justify-center rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center pt-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="animate-section">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-[1.5px] bg-black"></div>
+                    <span class="text-black/60 font-bold tracking-[0.5em] uppercase text-[10px]">Vanity Glow Rituals</span>
+                </div>
+                <h1 class="text-7xl lg:text-9xl font-medium mb-12 leading-[0.9]">
+                    L'Éclat <br/><span class="italic font-light opacity-60">Divin</span>
+                </h1>
+                <p class="text-xl text-muted mb-16 font-light leading-relaxed max-w-sm">
+                    Révélez votre lumière intérieure avec nos rituels de soin exclusifs, balayez pour découvrir notre univers.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#boutique" class="btn-primary px-16 py-6 inline-block shadow-lg">La Collection</a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:block relative group">
+                <div class="aspect-[4/5] rounded-[60px] overflow-hidden shadow-2xl border-[1px] border-white z-10 relative">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?auto=format&fit=crop&q=80&w=1000" alt="Beauté" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                </div>
+                <div class="absolute inset-0 translate-x-8 translate-y-8 rounded-[60px] border-2 border-brand-pink -z-0"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Boutique Section -->
+    <main id="boutique" class="py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <p class="text-black/40 font-bold tracking-[0.4em] uppercase text-[10px] mb-4">Balayez pour découvrir</p>
+                    <h2 class="text-5xl lg:text-7xl font-medium">Nos Créations</h2>
+                </div>
+                <div class="hidden md:flex gap-4">
+                    <button id="prevBtn" class="p-4 border border-gray-100 rounded-full hover:bg-gray-50 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button id="nextBtn" class="p-4 border border-gray-100 rounded-full hover:bg-gray-50 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carousel Horizontal -->
+            <div id="productGrid" class="product-carousel">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-32">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-col items-center gap-12 mb-20">
+                <img src="https://i.postimg.cc/JnCrgKF0/unnamed-(37).jpg" alt="Logo Footer" class="h-40 lg:h-56 w-auto">
+                <p class="text-2xl font-light leading-relaxed text-main max-w-lg mx-auto">
+                    "La beauté est un rituel quotidien."
+                </p>
+            </div>
+            <div class="pt-12 border-t border-black/10">
+                <p class="text-[10px] uppercase tracking-[0.3em] font-light opacity-50">© 2024 Vanity Glow. Pureté. Éclat. Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-md" onclick="closeProductDetail()"></div>
+        <div class="absolute inset-y-0 right-0 w-full max-w-2xl bg-white side-drawer shadow-2xl overflow-y-auto translate-x-full" id="detailDrawer">
+            <div class="p-8 lg:p-12 h-full flex flex-col">
+                <button onclick="closeProductDetail()" class="self-end p-4 hover:rotate-90 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div id="detailContent" class="flex-grow space-y-12 py-10"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="side-drawer fixed top-0 right-0 w-full max-w-md h-full z-[110] shadow-2xl flex flex-col translate-x-full">
+        <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <h3 class="text-2xl font-medium">Votre Panier</h3>
+            <button id="closeCart" class="p-2.5 bg-white border border-gray-100 rounded-full hover:rotate-90 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div id="cartContentStep" class="flex-grow overflow-y-auto p-8 space-y-8">
+            <div id="cartItemsList" class="space-y-8"></div>
+            <div id="emptyCartMsg" class="hidden flex flex-col items-center justify-center py-20 opacity-20 text-center">
+                <p class="uppercase tracking-widest text-[10px] font-bold">Panier Vide</p>
+            </div>
+        </div>
+        <div id="checkoutStep" class="hidden flex-grow overflow-y-auto p-8">
+            <button id="backToCart" class="text-[10px] uppercase tracking-widest font-bold text-black opacity-40 mb-10 flex items-center gap-2 hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg> Retour
+            </button>
+            <form id="orderForm" class="space-y-6">
+                <input type="text" id="custName" required placeholder="Nom complet" class="w-full p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-1 focus:ring-brand-pink outline-none">
+                <input type="tel" id="custPhone" required placeholder="WhatsApp" class="w-full p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-1 focus:ring-brand-pink outline-none">
+                <textarea id="custAddress" required placeholder="Adresse" class="w-full p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-1 focus:ring-brand-pink outline-none h-32"></textarea>
+            </form>
+        </div>
+        <div class="p-8 border-t border-gray-100 bg-gray-50/30">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold uppercase tracking-[0.2em] text-[10px] opacity-40">Total</span>
+                <span id="totalPrice" class="text-4xl font-medium">0€</span>
+            </div>
+            <button id="mainActionBtn" class="w-full btn-primary py-6 shadow-xl disabled:opacity-30">Commander</button>
+        </div>
+    </div>
+
+    <!-- Overlay Global -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[100] hidden opacity-0 transition-opacity duration-500"></div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Sérum d'Or Pure", price: 42, image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&q=80&w=800", desc: "Illumine et régénère instantanément avec des particules d'or 24k.", tag: "Best-seller" },
+            { id: 2, name: "Crème Soyeuse Royale", price: 58, image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d521?auto=format&fit=crop&q=80&w=800", desc: "Hydratation profonde et confort divin, à base de karité rare.", tag: "Nouveau" },
+            { id: 3, name: "Élixir Cristallin", price: 35, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800", desc: "Purifie et affine la texture cutanée par la force des minéraux.", tag: "Rare" },
+            { id: 4, name: "Baume de Rose Intense", price: 18, image: "https://images.unsplash.com/photo-1599305090598-fe175d3f2824?auto=format&fit=crop&q=80&w=800", desc: "Soin précieux pour des lèvres soyeuses aux extraits de rose de Damas.", tag: "Favori" },
+            { id: 5, name: "Masque Lunaire", price: 29, image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&q=80&w=800", desc: "Apaisement minéral et détox nocturne aux sédiments marins.", tag: "Nuit" },
+            { id: 6, name: "Brume Florale", price: 24, image: "https://images.unsplash.com/photo-1570197788417-0e93323c33ed?auto=format&fit=crop&q=80&w=800", desc: "Réveil sensoriel et fraîcheur pure, tonifiant instantané.", tag: "Vitalité" },
+            { id: 7, name: "Gommage Perle Noir", price: 45, image: "https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&q=80&w=800", desc: "Exfoliation délicate aux grains de perle noire de Tahiti.", tag: "Édition Limitée" },
+            { id: 8, name: "Huile de Jade", price: 62, image: "https://images.unsplash.com/photo-1601049676099-2c2690c807e8?auto=format&fit=crop&q=80&w=800", desc: "Équilibre et éclat éternel grâce aux vertus du Jade ancestral.", tag: "Prestige" }
+        ];
+
+        let cart = [];
+        let isCheckout = false;
+
+        const productGrid = document.getElementById('productGrid');
+        const cartBadge = document.getElementById('cartBadge');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const cartItemsList = document.getElementById('cartItemsList');
+        const mainActionBtn = document.getElementById('mainActionBtn');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartOverlay = document.getElementById('cartOverlay');
+
+        function spawnHearts(e) {
+            const x = e.clientX || e.pageX;
+            const y = e.clientY || e.pageY;
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.setProperty('--tw-tx', (Math.random() - 0.5) * 200 + 'px');
+                heart.style.setProperty('--tw-ty', -100 - Math.random() * 200 + 'px');
+                heart.style.setProperty('--tw-tr', (Math.random() - 0.5) * 180 + 'deg');
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+
+        function renderProducts() {
+            productGrid.innerHTML = products.map(p => `
+                <div class="product-card group flex flex-col p-8 relative">
+                    <span class="product-badge">${p.tag}</span>
+                    <div class="relative aspect-square overflow-hidden rounded-[40px] bg-gray-50 mb-10 cursor-pointer" onclick="openProductDetail(${p.id})">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-3xl font-medium cursor-pointer" onclick="openProductDetail(${p.id})">${p.name}</h3>
+                            <span class="text-xl font-light opacity-60">${p.price}€</span>
+                        </div>
+                    </div>
+                    <button onclick="handleAddToCart(event, ${p.id})" class="w-full btn-primary py-5 active:scale-95 shadow-sm">Ajouter au Rituel</button>
+                </div>
+            `).join('');
+        }
+
+        window.handleAddToCart = (e, id) => {
+            spawnHearts(e);
+            const product = products.find(p => p.id === id);
+            const inCart = cart.find(item => item.id === id);
+            if (inCart) inCart.quantity++;
+            else cart.push({ ...product, quantity: 1 });
+            updateCart();
+            toggleCart(true);
+        };
+
+        window.openProductDetail = (id) => {
+            const p = products.find(x => x.id === id);
+            document.getElementById('detailContent').innerHTML = `
+                <div class="aspect-[4/5] rounded-[40px] overflow-hidden shadow-xl mb-12">
+                    <img src="${p.image}" class="w-full h-full object-cover">
+                </div>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-5xl font-medium">${p.name}</h2>
+                        <span class="text-2xl font-light">${p.price}€</span>
+                    </div>
+                    <p class="text-lg font-light text-muted leading-relaxed">${p.desc}</p>
+                    <button onclick="handleAddToCart(event, ${p.id}); closeProductDetail();" class="w-full btn-primary py-6">Ajouter au Panier</button>
+                </div>
+            `;
+            document.getElementById('productDetailModal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('detailDrawer').style.transform = 'translateX(0)', 10);
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeProductDetail = () => {
+            document.getElementById('detailDrawer').style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.getElementById('productDetailModal').classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 500);
+        };
+
+        function updateCart() {
+            renderCartItems();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartBadge.textContent = count;
+            cartBadge.classList.toggle('hidden', count === 0);
+            totalPriceEl.textContent = `${total}€`;
+            mainActionBtn.disabled = cart.length === 0;
+            document.getElementById('emptyCartMsg').classList.toggle('hidden', cart.length > 0);
+        }
+
+        function renderCartItems() {
+            cartItemsList.innerHTML = cart.map(item => `
+                <div class="flex gap-6 items-center border-b border-gray-50 pb-8">
+                    <div class="w-20 h-24 rounded-2xl overflow-hidden bg-gray-50"><img src="${item.image}" class="w-full h-full object-cover"></div>
+                    <div class="flex-grow">
+                        <h4 class="text-[11px] font-bold uppercase mb-2">${item.name}</h4>
+                        <div class="flex items-center gap-4">
+                            <button onclick="changeQty(${item.id}, -1)" class="w-8 h-8 border rounded-lg">-</button>
+                            <span class="text-sm font-bold">${item.quantity}</span>
+                            <button onclick="changeQty(${item.id}, 1)" class="w-8 h-8 border rounded-lg">+</button>
+                        </div>
+                    </div>
+                    <div class="text-right"><p class="font-medium">${item.price * item.quantity}€</p></div>
+                </div>
+            `).join('');
+        }
+
+        window.changeQty = (id, d) => {
+            const i = cart.find(x => x.id === id);
+            if (i) { i.quantity += d; if (i.quantity <= 0) cart = cart.filter(x => x.id !== id); updateCart(); }
+        };
+
+        function toggleCart(show) {
+            if (show) {
+                cartDrawer.style.transform = 'translateX(0)';
+                cartOverlay.classList.remove('hidden');
+                setTimeout(() => cartOverlay.classList.add('opacity-100'), 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                cartDrawer.style.transform = 'translateX(100%)';
+                cartOverlay.classList.remove('opacity-100');
+                setTimeout(() => { cartOverlay.classList.add('hidden'); switchToStep('cart'); document.body.style.overflow = ''; }, 500);
+            }
+        }
+
+        function switchToStep(s) {
+            isCheckout = s === 'checkout';
+            document.getElementById('cartContentStep').classList.toggle('hidden', isCheckout);
+            document.getElementById('checkoutStep').classList.toggle('hidden', !isCheckout);
+            mainActionBtn.textContent = isCheckout ? "Confirmer la commande" : "Valider la commande";
+        }
+
+        document.getElementById('cartBtn').onclick = () => toggleCart(true);
+        document.getElementById('closeCart').onclick = () => toggleCart(false);
+        cartOverlay.onclick = () => { toggleCart(false); closeProductDetail(); };
+        document.getElementById('backToCart').onclick = () => switchToStep('cart');
+
+        document.getElementById('prevBtn').onclick = () => productGrid.scrollBy({ left: -400, behavior: 'smooth' });
+        document.getElementById('nextBtn').onclick = () => productGrid.scrollBy({ left: 400, behavior: 'smooth' });
+
+        mainActionBtn.onclick = () => {
+            if (!isCheckout) switchToStep('checkout');
+            else if (document.getElementById('orderForm').checkValidity()) {
+                alert("Rituel Enregistré ! Un conseiller vous contactera par WhatsApp.");
+                cart = []; updateCart(); toggleCart(false); document.getElementById('orderForm').reset();
+            } else document.getElementById('orderForm').reportValidity();
+        };
+
+        renderProducts();
+    </script>
+</body>
+</html>
